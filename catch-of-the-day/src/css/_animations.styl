@@ -10,17 +10,36 @@
   transform translateX(-120%)
   max-height 0
   padding 0 !important
+  opacity 0
   &.order-enter-active
     max-heigth 60px
     padding 2rem 0 !important
-    transform translateX(0);
+    transform translateX(0)
+    opacity 1
+
 
 .order-leave
-  transition all  0.5s
-  transform translateX(0%)
-  max-height 60
-  padding 2rem 0 !important
+  transition all 0.5s
+  transform translateX(0)
+  opacity 1
   &.order-leave-active
-    max-heigth 0px
+    transform translateX(-120%)
+    opacity: 0
+    max-height 0
     padding 0 !important
-    transform translateX(-120%);
+
+.count-enter
+  transition all .25s
+  transform translateY(100%)
+  &.count-enter-active
+    transform translateY(0)
+
+
+.count-leave
+  transition all .25s
+  position absolute
+  left 0
+  bottom 0
+  transform translateY(0)
+  &.count-leave-active
+    transform translateY(-100%)

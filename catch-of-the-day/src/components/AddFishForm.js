@@ -33,5 +33,9 @@ class AddFishForm extends React.Component {
   }
 }
 
+AddFishForm.propTypes = {
+  addFish: React.Prop.types.func.isRequired
+}
+
 export default AddFishForm;
  
