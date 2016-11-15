@@ -1,6 +1,6 @@
 .order-enter {
-  -webkit-transition: all 5s;
-  transition: all 5s;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
   -webkit-transform: translateX(-120%);
           transform: translateX(-120%);
   max-height: 0;
@@ -11,6 +11,20 @@
   padding: 2rem 0 !important;
   -webkit-transform: translateX(0);
           transform: translateX(0);
+}
+.order-leave {
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: translateX(0%);
+          transform: translateX(0%);
+  max-height: 60;
+  padding: 2rem 0 !important;
+}
+.order-leave.order-leave-active {
+  max-heigth: 0px;
+  padding: 0 !important;
+  -webkit-transform: translateX(-120%);
+          transform: translateX(-120%);
 }
 @font-face {
   font-family: "haymakerregular";

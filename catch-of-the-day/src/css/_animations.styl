@@ -6,7 +6,7 @@
 */
 
 .order-enter
-  transition all 5s
+  transition all 0.5s
   transform translateX(-120%)
   max-height 0
   padding 0 !important
@@ -14,3 +14,13 @@
     max-heigth 60px
     padding 2rem 0 !important
     transform translateX(0);
+
+.order-leave
+  transition all  0.5s
+  transform translateX(0%)
+  max-height 60
+  padding 2rem 0 !important
+  &.order-leave-active
+    max-heigth 0px
+    padding 0 !important
+    transform translateX(-120%);
