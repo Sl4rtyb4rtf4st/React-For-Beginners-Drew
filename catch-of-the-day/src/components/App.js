@@ -6,6 +6,7 @@ import Fish from './Fish';
 import sampleFishes from '../sample-fishes';
 import base from '../base';
 
+
 class App extends React.Component {
   constructor() {
     super();
@@ -20,24 +21,25 @@ class App extends React.Component {
     // getinitialstate  
     this.state = {
       fishes: {},
-      order: {},
+      order: {}
     };
   }
 
   componentWillMount() {
-    // this runs right before the <app> is rendered
+    // this runs right before the <App> is rendered
     this.ref = base.syncState(`${this.props.params.storeId}/fishes`, {
       context: this,
       state: 'fishes'
     });
 
-    // check if there is any order in localstorage
+    // check if there is any order in localStorage
     const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
-    if (localStorageRef) {
-      // update our app component order state
+
+    if(localStorageRef) {
+      // update our app component's order state
       this.setState({
         order: JSON.parse(localStorageRef)
-      })
+      });
     }
   }
 
@@ -46,24 +48,15 @@ class App extends React.Component {
   }
 
   componentWillUpdate(nectProps, nextState) {
-  //   console.log('Something Changed'):
-  //   console.log({'Something Changed'}):
     localStorage.setItem(`order-${this.props.params.storeId}`, JSON.stringify(nextState.order))
   }
 
-  // shouldComponentUpdate() {
-  //   // This method can controle if the component will be re-rendered or 
-  //   // not, to negate the delay you get when refreshing the page 
-  // }
-
   addFish(fish) {
-    console.log("Click button");
     // update state
     const fishes = {...this.state.fishes};
     // add in out new fish
     const timestamp  = Date.now(); 
     fishes[`fish-${timestamp}`] = fish;
-    // this.state.fishes.fish1 = fish;
     // set state
     this.setState({ fishes });
   }
@@ -96,7 +89,6 @@ class App extends React.Component {
   }
   
   removeFromOrder(key) {
-    // get copy of order
     const order = {...this.state.order};
     delete order[key];
     this.setState({ order });
@@ -106,12 +98,12 @@ class App extends React.Component {
     return (
       <div className="catch-of-the-day">
         <div className="menu">
-          <Header tagline="Freh Seafood Market" />
+          <Header tagline="Fresh Seafood Market" />
           <ul className="list-of-fishes">
             {
               Object
                 .keys(this.state.fishes)
-                .map(key => <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder} />)
+                .map(key => <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder}/>)
             }
           </ul>
         </div>
@@ -127,10 +119,15 @@ class App extends React.Component {
           loadSamples={this.loadSamples}
           fishes={this.state.fishes}
           updateFish={this.updateFish}
+          storeId={this.props.params.storeId}
         />
       </div>
     )
   }
 } 
+
+App.propTypes = {
+  params: React.PropTypes.object.isRequired
+}
 
 export default App;
