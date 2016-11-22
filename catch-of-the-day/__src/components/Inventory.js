@@ -2,22 +2,18 @@ import React from 'react';
 import AddFishForm from './AddFishForm';
 import base from '../base';
 
-
 class Inventory extends React.Component {
   constructor() {
     super();
-
     this.renderInventory = this.renderInventory.bind(this);
     this.renderLogin = this.renderLogin.bind(this);
     this.authenticate = this.authenticate.bind(this);
     this.logout = this.logout.bind(this);
     this.authHandler = this.authHandler.bind(this);
     this.handleChange = this.handleChange.bind(this);
-
     this.state = {
       uid: null,
-      owner: null,
-      // error: null
+      owner: null
     }
   }
 
@@ -40,7 +36,7 @@ class Inventory extends React.Component {
   }
 
   authenticate(provider) {
-    // console.log(`Trying to log in with ${provider}`);
+    console.log(`Trying to log in with ${provider}`);
     base.authWithOAuthPopup(provider, this.authHandler);
   }
 
@@ -50,12 +46,10 @@ class Inventory extends React.Component {
   }
 
   authHandler(err, authData)  {
-    // console.log(authData);
+    console.log(authData);
     if (err) {
       console.error(err);
-      // if(err.code === "auth/web-storage-unsupported") {
-      //   this.setState({ error: "cookies" })
-      // }
+      return;
     }
 
     // grab the store info
@@ -116,7 +110,7 @@ class Inventory extends React.Component {
 
     // check if they are no logged in at all
     if(!this.state.uid) {
-      return <div>{this.renderLogin()}</div>;
+      return <div>{this.renderLogin()}</div>
     }
 
     // Check if they are the owner of the current store
@@ -126,16 +120,8 @@ class Inventory extends React.Component {
           <p>Sorry you aren't the owner of this store!</p>
           {logout}
         </div>
-      );
+      )
     }
-
-    // if(this.state.error === "cookies") {
-    //   return(
-    //     <div>
-    //       <p>Your cookie pollicy blocks 3rd party cookies, which this site requires</p>
-    //     </div>
-    //   );
-    // }
 
     return (
       <div>
@@ -147,15 +133,15 @@ class Inventory extends React.Component {
       </div>
     )
   }
-}
 
-Inventory.propTypes = {
-  fishes: React.PropTypes.object.isRequired,
-  updateFish: React.PropTypes.func.isRequired,
-  removeFish: React.PropTypes.func.isRequired,
-  addFish: React.PropTypes.func.isRequired,
-  loadSamples: React.PropTypes.func.isRequired,
-  storeId: React.PropTypes.string.isRequired
-};
+  static propTypes = {
+    fishes: React.PropTypes.object.isRequired,
+    updateFish: React.PropTypes.func.isRequired,
+    removeFish: React.PropTypes.func.isRequired,
+    addFish: React.PropTypes.func.isRequired,
+    loadSamples: React.PropTypes.func.isRequired,
+    storeId: React.PropTypes.string.isRequired
+  };
+}
 
 export default Inventory;
